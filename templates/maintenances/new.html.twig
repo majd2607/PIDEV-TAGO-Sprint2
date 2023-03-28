@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Maintenances{% endblock %}
+
+{% block body %}
+    <h1>Create new Maintenances</h1>
+
+    {{ include('maintenances/_form.html.twig') }}
+
+    <a href="{{ path('app_maintenances_index') }}">back to list</a>
+{% endblock %}

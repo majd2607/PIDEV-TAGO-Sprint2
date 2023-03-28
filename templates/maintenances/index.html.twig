@@ -1,0 +1,23 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Maintenances index
+{% endblock %}
+
+{% block body %}
+</br></br></br></br><h1>Maintenances index</h1><table class="table" style="margin-top: 300px;"><thead><tr>
+<th>Id</th>
+<th>TypePanne</th>
+<th>Statu</th>
+<th>actions</th></tr></thead><tbody>{% for maintenance in maintenances %}
+<tr>
+	<td>{{ maintenance.id }}</td>
+	<td>{{ maintenance.typePanne }}</td>
+	<td>{{ maintenance.statu }}</td>
+	<td>
+		<a href="{{ path('app_maintenances_show', {'id': maintenance.id}) }}">show</a>
+		<a href="{{ path('app_maintenances_edit', {'id': maintenance.id}) }}">edit</a>
+	</td>
+</tr>{% else %}
+<tr>
+	<td colspan="4">no records found</td>
+</tr>{% endfor %}</tbody></table><a href="{{ path('app_maintenances_new') }}">Create new</a></tbody>{% endblock %}
