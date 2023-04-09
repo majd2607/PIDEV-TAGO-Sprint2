@@ -2,65 +2,150 @@
 
 namespace App\Entity;
 
-use App\Repository\MaintenancesRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MaintenancesRepository::class)]
+/**
+ * Maintenances
+ *
+ * @ORM\Table(name="maintenances", indexes={@ORM\Index(name="fk_maintenances_vehicules", columns={"idVehicule"}), @ORM\Index(name="fk_maintenances_users", columns={"idTechnicien"})})
+ * @ORM\Entity
+ */
 class Maintenances
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typePanne = null;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    //private $date = 'CURRENT_TIMESTAMP';
+    private ?\DateTimeInterface $date = null;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255, nullable=false)
+     */
+    private $type;
 
-    #[ORM\Column(length: 255)]
-    private ?string $statu = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     */
+    private $status;
 
-    #[ORM\ManyToOne(inversedBy: 'maintenances')]
-    private ?Vehicules $idVehicule = null;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="archive", type="boolean", nullable=false)
+     *
+
+     */
+
+    private $archive = '0';
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Vehicules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idVehicule", referencedColumnName="id")
+     * })
+     */
+
+    private ?Vehicules $idvehicule = null;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateurs")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idTechnicien", referencedColumnName="id")
+     * })
+     */
+    private ?Utilisateurs $idtechnicien = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTypePanne(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->typePanne;
+        return $this->date;
     }
 
-    public function setTypePanne(string $typePanne): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->typePanne = $typePanne;
+        $this->date = $date;
 
         return $this;
     }
 
-
-    public function getStatu(): ?string
+    public function getType(): ?string
     {
-        return $this->statu;
+        return $this->type;
     }
 
-    public function setStatu(string $statu): self
+    public function setType(string $type): self
     {
-        $this->statu = $statu;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getIdVehicule(): ?vehicules
+    public function getStatus(): ?string
     {
-        return $this->idVehicule;
+        return $this->status;
     }
 
-    public function setIdVehicule(?vehicules $idVehicule): self
+    public function setStatus(string $status): self
     {
-        $this->idVehicule = $idVehicule;
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function isArchive(): ?bool
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(bool $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getIdvehicule(): ?Vehicules
+    {
+        return $this->idvehicule;
+    }
+
+    public function setIdvehicule(?Vehicules $idvehicule): self
+    {
+        $this->idvehicule = $idvehicule;
+
+        return $this;
+    }
+
+    public function getIdtechnicien(): ?Utilisateurs
+    {
+        return $this->idtechnicien;
+    }
+
+    public function setIdtechnicien(?Utilisateurs $idtechnicien): self
+    {
+        $this->idtechnicien = $idtechnicien;
 
         return $this;
     }

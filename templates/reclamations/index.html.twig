@@ -1,8 +1,9 @@
 
 
+
 {% extends 'baseBack.html.twig' %}
 
-{% block title %}maintenances index
+{% block title %}Reclamations index
 {% endblock %}
 
 {% block body %}
@@ -10,38 +11,41 @@
 		<h4 class="fw-bold">
 			Gestion Users
 		</h4>
-		<a type="button" class="btn btn-primary mb-3" href="{{ path('app_maintenances_new') }}">Create new</a>
+		<a type="button" class="btn btn-primary mb-3" href="{{ path('app_reclamations_new') }}">Create new</a>
 
 		<div class="card">
 			<div class="table-responsive text-nowrap">
 				<table class="table">
 					<thead>
 						<tr>
-				<th>Id</th>
-                <th>Date</th>
+						<th>Id</th>
+                <th>Idvehicule</th>
                 <th>Type</th>
-                <th>Status</th>
+                <th>Date</th>
+                <th>Description</th>
                 <th>Archive</th>
                 <th>actions</th>
 						</tr>
 					</thead>
 					<tbody class="table-border-bottom-0">
-        {% for maintenance in maintenances %}
+                       {% for reclamation in reclamations %}
 							<tr>
-						<td>{{ maintenance.id }}</td>
-                <td>{{ maintenance.date ? maintenance.date|date('Y-m-d') : '' }}</td>
-                <td>{{ maintenance.type }}</td>
-                <td>{{ maintenance.status }}</td>
-                <td>{{ maintenance.archive ? 'Yes' : 'No' }}</td>
+								<td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.idvehicule }}</td>
+                <td>{{ reclamation.type }}</td>
+                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>{{ reclamation.archive ? 'Yes' : 'No' }}</td>
 								<td>
 									<div class="dropdown">
 										<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
 											<i class="bx bx-dots-vertical-rounded"></i>
 										</button>
 										<div class="dropdown-menu">
-											<a class="dropdown-item" href="{{ path('app_maintenances_show', {'id': maintenance.id}) }}">Show</a>
-											<a class="dropdown-item" href="{{ path('app_maintenances_edit', {'id': maintenance.id}) }}">Edit</a>
+											<a class="dropdown-item" href="{{ path('app_reclamations_show', {'id': reclamation.id}) }}">Show</a>
+											<a class="dropdown-item" href="{{ path('app_reclamations_edit', {'id': reclamation.id}) }}">Edit</a>
 
+                                            
 										</div>
 									</div>
 								</td>

@@ -2,33 +2,62 @@
 
 namespace App\Entity;
 
-use App\Repository\VehiculesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: VehiculesRepository::class)]
+/**
+ * Vehicules
+ *
+ * @ORM\Table(name="vehicules", uniqueConstraints={@ORM\UniqueConstraint(name="matricule", columns={"matricule"})}, indexes={@ORM\Index(name="FK_vehicules_modeles", columns={"idModele"})})
+ * @ORM\Entity
+ */
 class Vehicules
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $matricule = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="matricule", type="string", length=255, nullable=false)
+     */
+    private $matricule;
 
-    #[ORM\OneToMany(mappedBy: 'idVehicule', targetEntity: Maintenances::class)]
-    private Collection $maintenances;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="couleur", type="string", length=255, nullable=false)
+     */
+    private $couleur;
 
-    #[ORM\OneToMany(mappedBy: 'vehicule', targetEntity: Reclamation::class)]
-    private Collection $reclamations;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="kilometrage", type="integer", nullable=false)
+     */
+    private $kilometrage;
 
-    public function __construct()
-    {
-        $this->maintenances = new ArrayCollection();
-        $this->reclamations = new ArrayCollection();
-    }
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="archivee", type="boolean", nullable=false)
+     */
+    private $archivee = '0';
+
+    /**
+     * @var \Modeles
+     *
+     * @ORM\ManyToOne(targetEntity="Modeles")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idModele", referencedColumnName="id")
+     * })
+     */
+    private $idmodele;
 
     public function getId(): ?int
     {
@@ -47,67 +76,55 @@ class Vehicules
         return $this;
     }
 
-    /**
-     * @return Collection<int, Maintenances>
-     */
-    public function getMaintenances(): Collection
+    public function getCouleur(): ?string
     {
-        return $this->maintenances;
+        return $this->couleur;
     }
 
-    public function addMaintenance(Maintenances $maintenance): self
+    public function setCouleur(string $couleur): self
     {
-        if (!$this->maintenances->contains($maintenance)) {
-            $this->maintenances->add($maintenance);
-            $maintenance->setIdVehicule($this);
-        }
+        $this->couleur = $couleur;
 
         return $this;
     }
 
-    public function removeMaintenance(Maintenances $maintenance): self
+    public function getKilometrage(): ?int
     {
-        if ($this->maintenances->removeElement($maintenance)) {
-            // set the owning side to null (unless already changed)
-            if ($maintenance->getIdVehicule() === $this) {
-                $maintenance->setIdVehicule(null);
-            }
-        }
+        return $this->kilometrage;
+    }
+
+    public function setKilometrage(int $kilometrage): self
+    {
+        $this->kilometrage = $kilometrage;
+
+        return $this;
+    }
+
+    public function isArchivee(): ?bool
+    {
+        return $this->archivee;
+    }
+
+    public function setArchivee(bool $archivee): self
+    {
+        $this->archivee = $archivee;
+
+        return $this;
+    }
+
+    public function getIdmodele(): ?Modeles
+    {
+        return $this->idmodele;
+    }
+
+    public function setIdmodele(?Modeles $idmodele): self
+    {
+        $this->idmodele = $idmodele;
 
         return $this;
     }
     public function __toString()
     {
         return (string)  $this->getMatricule();
-    }
-
-    /**
-     * @return Collection<int, Reclamation>
-     */
-    public function getReclamations(): Collection
-    {
-        return $this->reclamations;
-    }
-
-    public function addReclamation(Reclamation $reclamation): self
-    {
-        if (!$this->reclamations->contains($reclamation)) {
-            $this->reclamations->add($reclamation);
-            $reclamation->setVehicule($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReclamation(Reclamation $reclamation): self
-    {
-        if ($this->reclamations->removeElement($reclamation)) {
-            // set the owning side to null (unless already changed)
-            if ($reclamation->getVehicule() === $this) {
-                $reclamation->setVehicule(null);
-            }
-        }
-
-        return $this;
     }
 }

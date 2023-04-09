@@ -13,12 +13,20 @@
 				<td>{{ maintenance.id }}</td>
 			</tr>
 			<tr>
-				<th>TypePanne</th>
-				<td>{{ maintenance.typePanne }}</td>
+				<th>Date</th>
+				<td>{{ maintenance.date ? maintenance.date|date('Y-m-d') : '' }}</td>
 			</tr>
 			<tr>
-				<th>Statu</th>
-				<td>{{ maintenance.statu }}</td>
+				<th>Type</th>
+				<td>{{ maintenance.type }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>{{ maintenance.status }}</td>
+			</tr>
+			<tr>
+				<th>Archive</th>
+				<td>{{ maintenance.archive ? 'Yes' : 'No' }}</td>
 			</tr>
 		</tbody>
 	</table>

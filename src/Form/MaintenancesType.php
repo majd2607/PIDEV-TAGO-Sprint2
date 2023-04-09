@@ -12,10 +12,11 @@ class MaintenancesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('typePanne')
-            ->add('statu')
-            ->add('idVehicule')
-        ;
+            ->add('type')
+            ->add('status')
+            ->add('archive')
+            ->add('idvehicule')
+            ->add('idtechnicien');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
