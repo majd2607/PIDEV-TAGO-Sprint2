@@ -1,0 +1,47 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Rapports
+{% endblock %}
+
+{% block body %}
+	<h1>Rapports</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ rapport.id }}</td>
+			</tr>
+			<tr>
+				<th>Cout</th>
+				<td>{{ rapport.cout }}</td>
+			</tr>
+			<tr>
+				<th>Pieceschangees</th>
+				<td>{{ rapport.pieceschangees }}</td>
+			</tr>
+			<tr>
+				<th>Tachesrealisees</th>
+				<td>{{ rapport.tachesrealisees }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ rapport.description }}</td>
+			</tr>
+			<tr>
+				<th>Archive</th>
+				<td>{{ rapport.archive ? 'Yes' : 'No' }}</td>
+			</tr>
+			<tr>
+				<th>Idmaintenance</th>
+				<td>{{ rapport.idmaintenance }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_rapports_index') }}">back to list</a>
+
+	<a href="{{ path('app_rapports_edit', {'id': rapport.id}) }}">edit</a>
+
+	{{ include('rapports/_delete_form.html.twig') }}
+{% endblock %}

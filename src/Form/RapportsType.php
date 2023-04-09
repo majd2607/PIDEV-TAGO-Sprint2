@@ -2,28 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Maintenances;
+use App\Entity\Rapports;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MaintenancesType extends AbstractType
+class RapportsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type')
-            ->add('status')
-            #->add('archive')#
-            ->add('date')
-            ->add('idvehicule')
+            ->add('cout')
+            ->add('pieceschangees')
+            ->add('tachesrealisees')
+            ->add('description')
+            ->add('archive')
+            ->add('idmaintenance')
             ->add('idtechnicien');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Maintenances::class,
+            'data_class' => Rapports::class,
         ]);
     }
 }

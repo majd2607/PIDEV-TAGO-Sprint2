@@ -1,0 +1,14 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Edit Rapports
+{% endblock %}
+
+{% block body %}
+	<h1>Edit Rapports</h1>
+
+	{{ include('rapports/_form.html.twig', {'button_label': 'Update'}) }}
+
+	<a href="{{ path('app_rapports_index') }}">back to list</a>
+
+	{{ include('rapports/_delete_form.html.twig') }}
+{% endblock %}

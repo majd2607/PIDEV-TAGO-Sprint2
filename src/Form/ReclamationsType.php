@@ -16,9 +16,8 @@ class ReclamationsType extends AbstractType
             ->add('type')
             ->add('date')
             ->add('description')
-            ->add('archive')
-            ->add('idclient')
-        ;
+            #->add('archive')#
+            ->add('idclient');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

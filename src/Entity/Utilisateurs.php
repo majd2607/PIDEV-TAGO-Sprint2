@@ -428,6 +428,6 @@ class Utilisateurs
 
     public function __toString()
     {
-        return (string)  $this->getRole();
+        return (string)  $this->getNom();
     }
 }

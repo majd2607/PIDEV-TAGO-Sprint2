@@ -1,0 +1,58 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Rapports index
+{% endblock %}
+
+{% block body %}
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold">
+			Liste des rapports
+		</h4>
+		<a type="button" class="btn btn-primary mb-3" href="{{ path('app_rapports_new') }}">Create new</a>
+
+		<div class="card">
+			<div class="table-responsive text-nowrap">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Cout</th>
+							<th>Pieceschangees</th>
+							<th>Tachesrealisees</th>
+							<th>Description</th>
+							<th>Archive</th>
+							<th>Idmaintenance</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for rapport in rapports %}
+							<tr>
+								<td>{{ rapport.id }}</td>
+								<td>{{ rapport.cout }}</td>
+								<td>{{ rapport.pieceschangees }}</td>
+								<td>{{ rapport.tachesrealisees }}</td>
+								<td>{{ rapport.description }}</td>
+								<td>{{ rapport.archive ? 'Yes' : 'No' }}</td>
+								<td>{{ rapport.idmaintenance }}</td>
+								<td>
+									<a href="{{ path('app_rapports_show', {'id': rapport.id}) }}">show</a>
+									<a href="{{ path('app_rapports_edit', {'id': rapport.id}) }}">edit</a>
+
+
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="21">No records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+
+{% endblock %}

@@ -4,8 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Maintenances</h1>
-
+<div class="container-xxl flex-grow-1 container-p-y">
+<h1>Maintenance Details</h1>
+<a type="button" class="btn btn-primary mb-3" href="{{ path('app_maintenances_edit', {'id': maintenance.id}) }}">Edit</a>
+{{ include('maintenances/_delete_form.html.twig') }}
 	<table class="table">
 		<tbody>
 			<tr>
@@ -24,16 +26,15 @@
 				<th>Status</th>
 				<td>{{ maintenance.status }}</td>
 			</tr>
-			<tr>
+			{#<tr>
 				<th>Archive</th>
 				<td>{{ maintenance.archive ? 'Yes' : 'No' }}</td>
-			</tr>
+			</tr>#}
 		</tbody>
 	</table>
+</div>
 
-	<a href="{{ path('app_maintenances_index') }}">back to list</a>
-
-	<a href="{{ path('app_maintenances_edit', {'id': maintenance.id}) }}">edit</a>
-
-	{{ include('maintenances/_delete_form.html.twig') }}
+<a href="{{ path('app_maintenances_index') }}">back to list</a>
 {% endblock %}
+
+
